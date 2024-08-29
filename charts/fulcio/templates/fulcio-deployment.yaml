@@ -71,14 +71,28 @@ spec:
             {{- range .Values.server.extraArgs }}
             - {{ . | quote }}
             {{- end }}
-          {{- if eq .Values.server.args.certificateAuthority "fileca" }}
           env:
+            {{- if eq .Values.server.args.certificateAuthority "fileca" }}
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.server.secret }}
                   key: password
-          {{- end }}
+            {{- end }}
+            {{- if and (eq .Values.server.args.certificateAuthority "kmsca") (eq .Values.server.cloudPlatform "aws") }}
+            - name: AWS_DEFAULT_REGION
+              value: {{ .Values.server.awsRegion }}
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.awsCredentialsSecretName }}
+                  key: accessKeyId
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.awsCredentialsSecretName }}
+                  key: secretAccessKey
+            {{- end }}
           livenessProbe:
             failureThreshold: 3
             httpGet:

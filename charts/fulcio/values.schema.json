@@ -201,6 +201,15 @@
                     },
                     "type": "object"
                 },
+                "awsCredentialsSecretName": {
+                    "type": "string"
+                },
+                "awsRegion": {
+                    "type": "string"
+                },
+                "cloudPlatform": {
+                    "type": "string"
+                },
                 "grpcSvcPort": {
                     "type": "integer"
                 },
