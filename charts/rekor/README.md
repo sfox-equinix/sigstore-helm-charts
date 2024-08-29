@@ -144,6 +144,8 @@ Part of the sigstore project, Rekor is a timestamping server and transparency lo
 | server.attestation_storage.persistence.size | string | `"5Gi"` |  |
 | server.attestation_storage.persistence.storageClass | string | `""` |  |
 | server.attestation_storage.persistence.subPath | string | `""` |  |
+| server.awsKmsCredentialsSecretName | string | `"aws-kms-credentials"` | ubernetes secret name containing IAM credentials for use with AWS KMS |
+| server.awsKmsRegion | string | `"us-east-1"` | AWS region if using AWS KMS for signing key |
 | server.config.key | string | `"treeID"` |  |
 | server.config.treeID | string | `""` |  |
 | server.enabled | bool | `true` |  |
@@ -170,6 +172,7 @@ Part of the sigstore project, Rekor is a timestamping server and transparency lo
 | server.ingresses[0].name | string | `"gce-ingress"` |  |
 | server.ingresses[0].staticGlobalIP | string | `"lb-ext-ip"` |  |
 | server.ingresses[0].tls | list | `[]` |  |
+| server.kmsType | string | `"none"` | KMS type for signing key (possible values: "" / "none", "aws") |
 | server.livenessProbe.failureThreshold | int | `3` |  |
 | server.livenessProbe.httpGet.path | string | `"/ping"` |  |
 | server.livenessProbe.httpGet.port | int | `3000` |  |
